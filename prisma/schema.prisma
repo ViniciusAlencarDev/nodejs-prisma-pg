@@ -15,3 +15,8 @@ model User {
   email String  @unique
   name  String?
 }
+
+model Post {
+  id    Int     @id @default(autoincrement())
+  titulo String  @unique
+}
