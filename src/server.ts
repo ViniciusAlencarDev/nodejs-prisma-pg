@@ -21,6 +21,21 @@ app.post('/', async (request) => {
     });
 })
 
+app.get('/posts', async () => {
+    return await prisma.post.findMany();
+})
+
+app.post('/posts', async (request) => {
+
+    const { titulo} = request.body;
+
+    await prisma.post.create({
+        data: {
+            titulo
+        }
+    });
+})
+
 const port = process.env.PORT ? Number(process.env.PORT) : 3333;
 
 app.listen({
