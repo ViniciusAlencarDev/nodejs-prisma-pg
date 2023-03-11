@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "tsx src/index",
     "build": "tsup src",
-    "start": "node dist/index.ts"
+    "start": "node dist/index.js"
   },
   "keywords": [],
   "author": "",

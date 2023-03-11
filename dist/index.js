@@ -30,14 +30,14 @@ var Server = class {
   constructor(port2) {
     this.port = 3e3;
     this.app = (0, import_fastify.default)();
-    this.port = port2;
+    this.port = port2 || this.port;
     this.routes();
   }
   routes() {
     this.app.get("/", async () => {
       return await prisma.user.findMany();
     });
-    app.post("/", async (request) => {
+    this.app.post("/", async (request) => {
       const { email, name } = request.body;
       await prisma.user.create({
         data: {
@@ -66,13 +66,10 @@ var Server = class {
       console.log(`Server started in port ${this.port}`);
     });
   }
-  getApp() {
-    return this.app;
-  }
 };
 var server_default = Server;
 
 // src/index.ts
 var port = process.env.PORT ? Number(process.env.PORT) : 3333;
-var app2 = new server_default(port);
-app2.start();
+var app = new server_default(port);
+app.start();

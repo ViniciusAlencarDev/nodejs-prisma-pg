@@ -1,11 +1,11 @@
-import fastify from "fastify";
+import fastify, { FastifyInstance } from "fastify";
 import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
 class Server {
 
-    private app;
+    private app: FastifyInstance;
     private port = 3000;
 
     constructor(port: number) {
