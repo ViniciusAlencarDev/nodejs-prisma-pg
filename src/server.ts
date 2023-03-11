@@ -3,44 +3,60 @@ import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
-const app = fastify()
+class Server {
 
-app.get('/', async () => {
-    return await prisma.user.findMany();
-})
+    private app;
+    private port = 3000;
 
-app.post('/', async (request) => {
+    constructor(port: number) {
+        this.app = fastify()
+        this.port = port || this.port
 
-    const { email, name } = request.body;
+        this.routes()
+    }
 
-    await prisma.user.create({
-        data: {
-            email,
-            name
-        }
-    });
-})
+    routes() {
+        this.app.get('/', async () => {
+            return await prisma.user.findMany();
+        })
+        
+        this.app.post('/', async (request) => {
+        
+            const { email, name } = request.body;
+        
+            await prisma.user.create({
+                data: {
+                    email,
+                    name
+                }
+            });
+        })
+        
+        this.app.get('/posts', async () => {
+            return await prisma.post.findMany();
+        })
+        
+        this.app.post('/posts', async (request) => {
+        
+            const { titulo} = request.body;
+        
+            await prisma.post.create({
+                data: {
+                    titulo
+                }
+            });
+        })   
+    }
 
-app.get('/posts', async () => {
-    return await prisma.post.findMany();
-})
+    start() {
+        this.app.listen({
+            host: "0.0.0.0",
+            port: this.port
+        }).then(() => {
+            console.log(`Server started in port ${this.port}`);
+        })
+        
+    }
+}
 
-app.post('/posts', async (request) => {
-
-    const { titulo} = request.body;
-
-    await prisma.post.create({
-        data: {
-            titulo
-        }
-    });
-})
-
-const port = process.env.PORT ? Number(process.env.PORT) : 3333;
-
-app.listen({
-    host: "0.0.0.0",
-    port
-}).then(() => {
-    console.log(`Server started in port ${port}`);
-})
+export default Server
