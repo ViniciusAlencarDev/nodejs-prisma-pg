@@ -56,6 +56,7 @@ class Server {
             console.log(`Server started in port ${this.port}`);
         })
         
+        return this.app;
     }
 }
 
