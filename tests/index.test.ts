@@ -13,6 +13,6 @@ describe('global', () => {
 
         console.log(result)
 
-        expect(10).toBe(10)
+        expect(!!result).toBe(true)
     })
 })
