@@ -48,8 +48,8 @@ class Server {
         })   
     }
 
-    start() {
-        this.app.listen({
+    async start() {
+        await this.app.listen({
             host: "0.0.0.0",
             port: this.port
         }).then(() => {
