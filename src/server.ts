@@ -38,13 +38,17 @@ class Server {
         
         this.app.post('/posts', async (request) => {
         
-            const { titulo} = request.body;
+            try {
+                const { titulo } = request.body;
         
-            await prisma.post.create({
-                data: {
-                    titulo
-                }
-            });
+                await prisma.post.create({
+                    data: {
+                        titulo
+                    }
+                });
+            } catch(error) {
+                console.log(error)
+            }
         })   
     }
 
