@@ -22,14 +22,18 @@ class Server {
         
         this.app.post('/', async (request) => {
         
-            const { email, name } = request.body;
-        
-            await prisma.user.create({
-                data: {
-                    email,
-                    name
-                }
-            });
+            try {
+                const { email, name } = request.body;
+            
+                await prisma.user.create({
+                    data: {
+                        email,
+                        name
+                    }
+                });
+            } catch(error) {
+                console.log(error)
+            }
         })
         
         this.app.get('/posts', async () => {
