@@ -2,7 +2,7 @@ import Server from '../src/server';
 import supertest from 'supertest';
 
 describe('global', () => {
-    test('API users', async () => {
+    test('API users get /', async () => {
         const app = new Server(3001)
         await app.start();
 
@@ -11,8 +11,6 @@ describe('global', () => {
             .end(function(err, res) {
                 if (err) throw err;
             });
-
-        console.log(result)
 
         expect(!!result).toBe(true)
     })
