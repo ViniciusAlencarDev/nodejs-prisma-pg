@@ -29,4 +29,17 @@ describe('global', () => {
 
         expect(result.statusCode).toBe(404)
     })
+
+    test('API posts get /', async () => {
+        const app = new Server(3001)
+        await app.start();
+
+        const result = supertest(app).get('/posts')
+            .send()
+            .end(function(err, res) {
+                if (err) throw err;
+            });
+
+        expect(!!result).toBe(true)
+    })
 })
